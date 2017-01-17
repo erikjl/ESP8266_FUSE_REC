@@ -12,7 +12,7 @@ const char* ssid = "FUSE";
 const char* password = "SKUNKWORKS_1!";
 
 WiFiServer server(4000);
-IPAddress local_IP(192,168,0,1);
+IPAddress local_IP(192,168,0,2);
 IPAddress gateway(192,168,0,1);
 IPAddress subnet(255,255,255,0);
 
@@ -28,7 +28,7 @@ void setup()
   Serial.println(WiFi.softAP(ssid, password, 1, false) ? "Ready" : "Failed!");
   Serial.print("Soft-AP IP address = ");
   Serial.println(WiFi.softAPIP());
- 
+  server.begin();
 }    
   
 int stationsConnected = 0;
@@ -43,7 +43,7 @@ void loop()
       if (cli.available())
       {
         String line = cli.readStringUntil('\r');
-        Serial.print(line);
+        Serial.println(line);
       }
     }
   }
